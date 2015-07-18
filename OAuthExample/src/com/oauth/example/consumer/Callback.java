@@ -20,9 +20,9 @@ import com.oauth.provider.server.OAuthServlet;
 /**
  * Servlet implementation class CallBack
  */
-@WebServlet("/OAuth/Callback")
+@WebServlet("/OAuthExample/Callback")
 public class Callback extends HttpServlet {
-	 public static final String PATH = "/OAuth/Callback";
+	 public static final String PATH = "/OAuthExample/Callback";
 
 	    protected final Logger log = Logger.getLogger(getClass().getName());
 
