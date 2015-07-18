@@ -18,7 +18,7 @@
         <title>Your Friendly OAuth Provider</title>
     </head>
     <body>
-        <jsp:include page="banner.jsp"/>
+       <%--  <jsp:include page="banner.jsp"/> --%>
         
     <h3>"<%=appDesc%>" is trying to access your information.</h3>
     
