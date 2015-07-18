@@ -44,8 +44,7 @@ public class SampleProviderConsumer extends HttpServlet {
 			response.setContentType("text/plain");
 			PrintWriter out = response.getWriter();
 			out.println("Sample Provider said:");
-			// Try it twice:
-			out.println(invoke(accessor, parameters));
+
 			out.println(invoke(accessor, parameters));
 		} catch (Exception e) {
 			CookieConsumer.handleException(e, request, response, consumer);
@@ -58,7 +57,7 @@ public class SampleProviderConsumer extends HttpServlet {
 		URL baseURL = (URL) accessor.consumer
 				.getProperty("serviceProvider.baseURL");
 		if (baseURL == null) {
-			baseURL = new URL("http://localhost:9090/oauth-provider/");
+			baseURL = new URL("http://localhost:8484/oauth-provider/");
 		}
 		OAuthMessage request = accessor.newRequestMessage("POST", (new URL(
 				baseURL, "echo")).toExternalForm(), parameters);
