@@ -22,6 +22,13 @@
 	rel='stylesheet' type='text/css'>
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(this).bind("contextmenu", function(e) {
+			e.preventDefault();
+		});
+	});
+</script>
 </head>
 <body>
 	<%--  <jsp:include page="banner.jsp"/> --%>
