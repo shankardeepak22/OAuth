@@ -29,40 +29,38 @@ public class SampleProviderConsumer extends HttpServlet {
 	private static final String NAME = "sample";
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		OAuthConsumer consumer = null;
 		try {
 			consumer = CookieConsumer.getConsumer(NAME, getServletContext());
-			OAuthAccessor accessor = CookieConsumer.getAccessor(request,
-					response, consumer);
-			Collection<OAuth.Parameter> parameters = HttpRequestMessage
-					.getParameters(request);
-			if (!OAuth.newMap(parameters).containsKey("echo")) {
-				parameters.add(new OAuth.Parameter("echo", "Hello."));
-			}
+			OAuthAccessor accessor = CookieConsumer.getAccessor(request, response, consumer);
+			Collection<OAuth.Parameter> parameters = HttpRequestMessage.getParameters(request);
+
 			response.setContentType("text/plain");
 			PrintWriter out = response.getWriter();
 			out.println("Sample Provider said:");
 
-			out.println(invoke(accessor, parameters));
+			String messageBody = invoke(accessor, parameters);
+			String username = request.getParameter("username");
+			System.out.println(username);
+			request.setAttribute("access", accessor.accessToken);
+			request.setAttribute("secret", accessor.tokenSecret);
+			request.setAttribute("user", username);
+			request.getRequestDispatcher("/welcomeUser.jsp").forward(request, response);
 		} catch (Exception e) {
 			CookieConsumer.handleException(e, request, response, consumer);
 		}
 	}
 
-	private String invoke(OAuthAccessor accessor,
-			Collection<? extends Map.Entry> parameters) throws OAuthException,
-			IOException, URISyntaxException {
-		URL baseURL = (URL) accessor.consumer
-				.getProperty("serviceProvider.baseURL");
+	private String invoke(OAuthAccessor accessor, Collection<? extends Map.Entry> parameters)
+			throws OAuthException, IOException, URISyntaxException {
+		URL baseURL = (URL) accessor.consumer.getProperty("serviceProvider.baseURL");
 		if (baseURL == null) {
-			baseURL = new URL("http://localhost:8484/oauth-provider/");
+			baseURL = new URL("http://192.168.1.2:8484/oauth-provider/");
 		}
-		OAuthMessage request = accessor.newRequestMessage("POST", (new URL(
-				baseURL, "echo")).toExternalForm(), parameters);
-		OAuthMessage response = CookieConsumer.CLIENT.invoke(request,
-				ParameterStyle.AUTHORIZATION_HEADER);
+		OAuthMessage request = accessor.newRequestMessage("POST", (new URL(baseURL, "echo")).toExternalForm(),
+				parameters);
+		OAuthMessage response = CookieConsumer.CLIENT.invoke(request, ParameterStyle.AUTHORIZATION_HEADER);
 		String responseBody = response.readBodyAsString();
 		return responseBody;
 	}

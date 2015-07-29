@@ -238,7 +238,7 @@ public class CookieConsumer {
 	                } catch (Exception rats) {
 	                }
 	                response.setStatus(p.getHttpStatusCode());
-	                response.resetBuffer();
+	              //  response.resetBuffer();
 	                request.setAttribute("OAuthProblemException", p);
 	                request.getRequestDispatcher //
 	                        ("/OAuthProblemException.jsp").forward(request,

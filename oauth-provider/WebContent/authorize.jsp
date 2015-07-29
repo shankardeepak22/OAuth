@@ -33,7 +33,7 @@
 </script>
 </head>
 <body>
-	<%--  <jsp:include page="banner.jsp"/> --%>
+	
 	<%
 		if (appDesc != null && appDesc.length() > 0) {
 	%>
@@ -69,8 +69,8 @@
 						<h2 class="text-success">Please Sign In</h2>
 						<hr class="colorgraph">
 						<div class="form-group">
-							<input type="email" name="userId" id="username"
-								class="form-control input-lg" placeholder="Email Address">
+							<input type="text" name="userName" id="username"
+								class="form-control input-lg" placeholder="User Name">
 
 							<input type="hidden" name="oauth_token" value="<%=token%>" /> <input
 								type="hidden" name="oauth_callback" value="<%=callback%>" />
