@@ -48,7 +48,8 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		user = userDao.getAuthorizedUser(userName, encPassword);
-		role = userDao.getUserRole(user);
+		if (user != null)
+			role = userDao.getUserRole(user);
 
 		if (user != null && user.getUserName().equals(userName)) {
 			session.setAttribute("username", userName);

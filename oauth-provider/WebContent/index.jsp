@@ -222,6 +222,11 @@
 		</div>
 
 		<%
+			} else {
+		%>
+		<img alt="welcome" src="images/welcome2.jpg" height="100%"
+			width="100%">
+		<%
 			}
 		%>
 

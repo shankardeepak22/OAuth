@@ -23,7 +23,7 @@
 
 	<div class="container">
 		<div class="alert alert-danger">
-			<h3 align="center">Could not Create User!</h3>
+			<h3 align="center">Wrong username or password!</h3>
 		</div>
 
 		<div class="jumbotron ">
