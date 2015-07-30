@@ -16,16 +16,16 @@ import com.oauth.example.modal.UserCredentials;
 import com.oauth.example.modal.UserRoles;
 
 /**
- * Servlet implementation class UserCreationServlet
+ * Servlet implementation class AdminCreationServlet
  */
-@WebServlet("/UserCreationServlet")
-public class UserCreationServlet extends HttpServlet {
+@WebServlet("/AdminCreationServlet")
+public class AdminCreationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserCreationServlet() {
+	public AdminCreationServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -54,7 +54,7 @@ public class UserCreationServlet extends HttpServlet {
 
 			UserRoles roles = new UserRoles();
 			roles.setUser(user);
-			roles.setRoles(Roles.ROLE_USER);
+			roles.setRoles(Roles.ROLE_ADMIN);
 			UserDao userDao = new UserDao();
 			user = userDao.save(user, credentials, roles);
 			if (user != null && user.getId() != null) {

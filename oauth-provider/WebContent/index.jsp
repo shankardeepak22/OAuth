@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+	String username = null;
+	String role = null;
+	if (session.getAttribute("username") != null) {
+		if (session.getAttribute("role") != null) {
+			username = session.getAttribute("username").toString();
+			role = session.getAttribute("role").toString();
+		}
+	}
+%>
 
 <!DOCTYPE html >
 <html>
@@ -57,22 +67,85 @@
 				<div id=navbar class="navbar-collapse collapse">
 					<nav>
 						<ul class="nav navbar-nav nav-pills pull-right">
-							<li role="presentation" class="active"><button type="button"
+
+							<%
+								if (username != null) {
+									if (role != null) {
+							%>
+
+
+							<li role="presentation"><a href="Logout">Logout</a></li>
+
+
+							<%
+								if (role.equals("ROLE_ADMIN")) {
+							%>
+							<li role="presentation"><button type="button"
 									class="btn btn-info " data-toggle="modal"
 									data-target="#createApp">Create App</button></li>
-
 							<li role="presentation"><button type="button"
 									class="btn btn-success " data-toggle="modal"
+									data-target="#createAdmin">Create Admin</button></li>
+							<%
+								}
+							%>
+							<%
+								}
+
+								} else {
+							%>
+							<li role="presentation"><button type="button"
+									class="btn btn-success " data-toggle="modal"
+									data-target="#login">Login</button></li>
+
+							<%
+								}
+							%>
+
+							<li role="presentation"><button type="button"
+									class="btn btn-warning " data-toggle="modal"
 									data-target="#aboutOauth">About OAuth</button></li>
 						</ul>
 					</nav>
+					<%
+						if (username != null) {
+					%>
+					<h3>
+						Welcome
+						<%=username%></h3>
+					<%
+						} else {
+					%>
 					<h3>Sample Oauth Provider</h3>
+					<%
+						}
+					%>
+
 				</div>
 			</div>
 		</div>
 
 
+		<!-- Create App Modal -->
+		<div id="login" class="modal fade" role="dialog">
+			<div class="modal-dialog">
 
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h2 class="modal-title text-success">Welcome Back!</h2>
+					</div>
+					<div class="modal-body">
+						<%@ include file="login.jsp"%>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
 
 
 		<!-- Create App Modal -->
@@ -87,6 +160,27 @@
 					</div>
 					<div class="modal-body">
 						<%@ include file="createApp.jsp"%>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Create App Modal -->
+		<div id="createAdmin" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h2 class="modal-title text-success">Create New App!</h2>
+					</div>
+					<div class="modal-body">
+						<%@ include file="createAdmin.jsp"%>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -120,12 +214,16 @@
 
 		</div>
 
-
+		<%
+			if (session.getAttribute("username") == null) {
+		%>
 		<div>
 			<%@ include file="createUser.jsp"%>
 		</div>
 
-
+		<%
+			}
+		%>
 
 	</div>
 
